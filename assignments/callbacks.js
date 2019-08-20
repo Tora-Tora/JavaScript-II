@@ -2,6 +2,8 @@
 
 const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
 
+const color = ['red', 'white', 'blue', 'pink', 'black', 'green', 'blue', 'pink', 'black'];
+
 /* 
 
   // GIVEN THIS PROBLEM:
@@ -41,23 +43,37 @@ const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
 
 function getLength(arr, cb) {
   // getLength passes the length of the array into the callback.
+  return cb(arr.length);
 }
+
+// let test1 = getLength(items, item => `Array is ${item} unit long.`)
+// console.log(test1);
 
 function last(arr, cb) {
   // last passes the last item of the array into the callback.
+  return cb(arr[arr.length-1]);
 }
+
+// let test1 = last(items, item => `${item} is the last item.`)
+// console.log(test1);
 
 function sumNums(x, y, cb) {
   // sumNums adds two numbers (x, y) and passes the result to the callback.
+  return cb(x+y);
 }
+
+// let test1 = sumNums(15, 22, num => `The sum is ${num}`)
+// console.log(test1);
 
 function multiplyNums(x, y, cb) {
   // multiplyNums multiplies two numbers and passes the result to the callback.
+  return cb(x*y);
 }
 
 function contains(item, list, cb) {
   // contains checks if an item is present inside of the given array/list.
   // Pass true to the callback if it is, otherwise pass false.
+  return cb(list.includes(item));
 }
 
 /* STRETCH PROBLEM */
@@ -66,4 +82,19 @@ function removeDuplicates(array, cb) {
   // removeDuplicates removes all duplicate values from the given array.
   // Pass the duplicate free array to the callback function.
   // Do not mutate the original array.
+  let noDuplicates = [];
+  array.forEach(function(current, index, array){
+    // looking for current item in the array from the index right after current item. If it exist and therefore has duplicate it will return the index, if not it will return -1. If it return -1 then that item is unique from the current position on toward the end of array. We only push unique item into the new array. As such only the last instance of that value is push into the new array.
+    if(array.indexOf(current, index+1)==-1){
+      noDuplicates.push(current);
+    }
+
+  })
+  return cb(noDuplicates);
 }
+
+// testing for removeDuplicates
+// console.log(`here's the original color array ${color}`);
+// let test1 = removeDuplicates(color, item => `Here's the list after duplicates are removed. ${item}`);
+// console.log(test1);
+
